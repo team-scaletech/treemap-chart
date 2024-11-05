@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="scaletech.treemapchart.TreeMapChart"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>Tree Map Chart</name>
+    <description>My widget description</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="General">
+                <property key="objectsDatasource" type="datasource" isList="true" required="false">
+                    <caption>Data source</caption>
+                    <description />
+                </property>
+
+                <!-- <property key="myObject" type="object" isList="true">
+                    <caption>My object list</caption>
+                    <description />
+                    <properties>
+                        <propertyGroup caption="Object list group">
+                            <property key="column1" type="attribute">
+                                <caption>Column 1</caption>
+                                <description />
+                                <attributeTypes>
+                                    <attributeType name="String" />
+                                </attributeTypes>
+                            </property>
+                        </propertyGroup>
+                    </properties>
+                </property> -->
+
+                <property key="moduleName" type="string">
+                    <caption>Name of module</caption>
+                    <description>The exact name of the module.</description>
+                </property>
+
+                <property key="entityName" type="string">
+                    <caption>Name of entity</caption>
+                    <description>The exact name of the entity.</description>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
