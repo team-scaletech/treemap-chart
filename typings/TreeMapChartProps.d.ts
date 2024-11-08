@@ -4,16 +4,19 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ListValue } from "mendix";
+import { ListValue, ListAttributeValue, ListExpressionValue } from "mendix";
+import { Big } from "big.js";
 
 export interface TreeMapChartContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    objectsDatasource?: ListValue;
-    moduleName: string;
-    entityName: string;
+    objectsDatasource: ListValue;
+    nameAttribute: ListAttributeValue<string>;
+    capacityMWAttribute: ListAttributeValue<Big>;
+    dataCoverageAttribute: ListAttributeValue<Big>;
+    myTollTip: ListExpressionValue<string>;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -27,6 +30,8 @@ export interface TreeMapChartPreviewProps {
     readOnly: boolean;
     renderMode?: "design" | "xray" | "structure";
     objectsDatasource: {} | { caption: string } | { type: string } | null;
-    moduleName: string;
-    entityName: string;
+    nameAttribute: string;
+    capacityMWAttribute: string;
+    dataCoverageAttribute: string;
+    myTollTip: string;
 }

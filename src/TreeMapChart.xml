@@ -15,35 +15,38 @@
     <properties>
         <propertyGroup caption="General">
             <propertyGroup caption="General">
-                <property key="objectsDatasource" type="datasource" isList="true" required="false">
+                <property key="objectsDatasource" type="datasource" isList="true">
                     <caption>Data source</caption>
                     <description />
                 </property>
 
-                <!-- <property key="myObject" type="object" isList="true">
-                    <caption>My object list</caption>
+                <property key="nameAttribute" type="attribute" dataSource="objectsDatasource">
+                    <caption>nameAttribute</caption>
                     <description />
-                    <properties>
-                        <propertyGroup caption="Object list group">
-                            <property key="column1" type="attribute">
-                                <caption>Column 1</caption>
-                                <description />
-                                <attributeTypes>
-                                    <attributeType name="String" />
-                                </attributeTypes>
-                            </property>
-                        </propertyGroup>
-                    </properties>
-                </property> -->
-
-                <property key="moduleName" type="string">
-                    <caption>Name of module</caption>
-                    <description>The exact name of the module.</description>
+                    <attributeTypes>
+                        <attributeType name="String" />
+                    </attributeTypes>
                 </property>
-
-                <property key="entityName" type="string">
-                    <caption>Name of entity</caption>
-                    <description>The exact name of the entity.</description>
+                <property key="capacityMWAttribute" type="attribute" dataSource="objectsDatasource">
+                    <caption>capacityMWAttribute</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="Decimal" />
+                    </attributeTypes>
+                </property>
+                <property key="dataCoverageAttribute" type="attribute" dataSource="objectsDatasource">
+                    <caption>dataCoverageAttribute</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="Decimal" />
+                    </attributeTypes>
+                </property>
+                <property key="myTollTip" type="textTemplate" dataSource="objectsDatasource">
+                    <caption>Input tooltip</caption>
+                    <description>Title for the color input</description>
+                    <translations>
+                        <translation lang="en_US" />
+                    </translations>
                 </property>
             </propertyGroup>
         </propertyGroup>
