@@ -39,7 +39,6 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({ objectsDatasource }) => 
                           // Filter out null values
                           .filter((item): item is MapData => item !== null)
                     : [];
-                console.warn("🚀 ~ data>>>:", datavalue);
             } catch (e) {
                 console.log("Error in processing defects", e);
             }
