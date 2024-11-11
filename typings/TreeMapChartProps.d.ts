@@ -13,10 +13,11 @@ export interface TreeMapChartContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     objectsDatasource: ListValue;
-    nameAttribute: ListAttributeValue<string>;
-    capacityMWAttribute: ListAttributeValue<Big>;
-    dataCoverageAttribute: ListAttributeValue<Big>;
+    dataKey: ListAttributeValue<Big | string>;
+    labelKey: ListAttributeValue<Big | string>;
+    chartTitle: string;
     myTollTip: ListExpressionValue<string>;
+    hoverEffectColor: string;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -30,8 +31,9 @@ export interface TreeMapChartPreviewProps {
     readOnly: boolean;
     renderMode?: "design" | "xray" | "structure";
     objectsDatasource: {} | { caption: string } | { type: string } | null;
-    nameAttribute: string;
-    capacityMWAttribute: string;
-    dataCoverageAttribute: string;
+    dataKey: string;
+    labelKey: string;
+    chartTitle: string;
     myTollTip: string;
+    hoverEffectColor: string;
 }

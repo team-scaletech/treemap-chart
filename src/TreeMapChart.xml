@@ -17,36 +17,52 @@
             <propertyGroup caption="General">
                 <property key="objectsDatasource" type="datasource" isList="true">
                     <caption>Data source</caption>
-                    <description />
+                    <description>Define the data source for chart values.</description>
                 </property>
 
-                <property key="nameAttribute" type="attribute" dataSource="objectsDatasource">
-                    <caption>nameAttribute</caption>
-                    <description />
+                <property key="dataKey" type="attribute" dataSource="objectsDatasource">
+                    <caption>Data Key</caption>
+                    <description>Define the key name in data objects to use for value</description>
                     <attributeTypes>
+                        <attributeType name="Integer" />
+                        <attributeType name="Decimal" />
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="capacityMWAttribute" type="attribute" dataSource="objectsDatasource">
-                    <caption>capacityMWAttribute</caption>
-                    <description />
+
+                <property key="labelKey" type="attribute" dataSource="objectsDatasource">
+                    <caption>Label Key</caption>
+                    <description>Define the key name in data objects to use for label</description>
                     <attributeTypes>
+                       <attributeType name="Integer" />
                         <attributeType name="Decimal" />
+                        <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="dataCoverageAttribute" type="attribute" dataSource="objectsDatasource">
+                <!-- <property key="dataCoverageAttribute" type="attribute" dataSource="objectsDatasource">
                     <caption>dataCoverageAttribute</caption>
                     <description />
                     <attributeTypes>
+                         <attributeType name="Integer" />
                         <attributeType name="Decimal" />
+                        <attributeType name="String" />
                     </attributeTypes>
+                </property> -->
+
+                <property key="chartTitle" type="string">
+                    <caption>Chart Title</caption>
+                    <description>The title displayed above the treemap chart.</description>
                 </property>
                 <property key="myTollTip" type="textTemplate" dataSource="objectsDatasource">
-                    <caption>Input tooltip</caption>
-                    <description>Title for the color input</description>
+                    <caption>Tooltip Template</caption>
+                   <description>Tooltip text displayed when hovering over chart elements. Can include dynamic data from the data source.</description>
                     <translations>
                         <translation lang="en_US" />
                     </translations>
+                </property>
+                <property key="hoverEffectColor" type="string" required="false">
+                    <caption>Hover Effect color</caption>
+                    <description>Color displayed when hovering over elements</description>
                 </property>
             </propertyGroup>
         </propertyGroup>
