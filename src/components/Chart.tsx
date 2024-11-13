@@ -65,7 +65,7 @@ const colors = [
 ];
 const defaultChartTitleStyle: ChartTitleProps = {
     chartTitle: "demo",
-    IsTitle: true,
+    IsTitle: false,
     fontFamily: "Open Sans, sans-serif",
     fontColor: "#000000",
     fontSize: 16,
@@ -73,7 +73,7 @@ const defaultChartTitleStyle: ChartTitleProps = {
     fontWeight: 400
 };
 const defaultlabelStyle: LabelStyleProps = {
-    IsLabels: true,
+    IsLabels: false,
     labelsFontFamily: "Open Sans, sans-serif",
     labelsFontColor: "#000000",
     labelsFontSize: 16,
