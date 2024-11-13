@@ -2,12 +2,12 @@ import { FC, createElement, useEffect, useState } from "react";
 
 import { TreeMapChartContainerProps } from "typings/TreeMapChartProps";
 import TreemapChart from "./components/Chart";
+
 import "./ui/TreeMapChart.css";
 
 export interface MapData {
     labelKey: string;
     dataKey: string;
-    // dataCoverage: string;
     tollTip: string;
 }
 
@@ -15,10 +15,21 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
     objectsDatasource,
     labelKey,
     dataKey,
-    // dataCoverageAttribute,
-    myTollTip,
+    myToolTip,
     chartTitle,
-    hoverEffectColor
+    hoverEffectColor,
+    IsTitle,
+    fontFamily,
+    fontColor,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    IsLabels,
+    labelsFontSize,
+    labelsFontFamily,
+    labelsFontWeight,
+    labelsFontColor,
+    labelsFontStyle
 }) => {
     const [chartValue, setChartValue] = useState<MapData[]>([]);
     useEffect(() => {
@@ -27,14 +38,35 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
                 const chartData = {
                     labelKey: labelKey.get(item).displayValue,
                     dataKey: dataKey.get(item).displayValue,
-                    // dataCoverage: dataCoverageAttribute.get(item).displayValue,
-                    tollTip: myTollTip.get(item).value || ""
+                    tollTip: myToolTip.get(item).value || ""
                 };
                 setChartValue(prevChartValue => [...prevChartValue, chartData]);
             });
         }
     }, [objectsDatasource]);
-    return <TreemapChart chartValue={chartValue} ChartTitle={chartTitle} hoverEffectColor={hoverEffectColor} />;
+    return (
+        <TreemapChart
+            chartValue={chartValue}
+            hoverEffectColor={hoverEffectColor}
+            ChartTitleStyle={{
+                chartTitle,
+                IsTitle,
+                fontFamily,
+                fontColor,
+                fontSize: parseFloat(fontSize as any),
+                fontStyle,
+                fontWeight: parseFloat(fontWeight as any)
+            }}
+            labelStyle={{
+                IsLabels,
+                labelsFontSize: parseFloat(labelsFontSize as any),
+                labelsFontFamily,
+                labelsFontWeight: parseFloat(labelsFontWeight as any),
+                labelsFontColor,
+                labelsFontStyle
+            }}
+        />
+    );
 };
 
 export default TreeMapChart;

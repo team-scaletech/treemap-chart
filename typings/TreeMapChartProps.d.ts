@@ -15,9 +15,21 @@ export interface TreeMapChartContainerProps {
     objectsDatasource: ListValue;
     dataKey: ListAttributeValue<Big | string>;
     labelKey: ListAttributeValue<Big | string>;
-    chartTitle: string;
-    myTollTip: ListExpressionValue<string>;
+    myToolTip: ListExpressionValue<string>;
     hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: Big;
+    labelsFontStyle: string;
+    labelsFontWeight: Big;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: Big;
+    fontStyle: string;
+    fontWeight: Big;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -33,7 +45,19 @@ export interface TreeMapChartPreviewProps {
     objectsDatasource: {} | { caption: string } | { type: string } | null;
     dataKey: string;
     labelKey: string;
-    chartTitle: string;
-    myTollTip: string;
+    myToolTip: string;
     hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: number | null;
+    labelsFontStyle: string;
+    labelsFontWeight: number | null;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: number | null;
+    fontStyle: string;
+    fontWeight: number | null;
 }
