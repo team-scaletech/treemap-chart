@@ -29,7 +29,9 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
     labelsFontFamily,
     labelsFontWeight,
     labelsFontColor,
-    labelsFontStyle
+    labelsFontStyle,
+    class: customClass,
+    style
 }) => {
     const [chartValue, setChartValue] = useState<MapData[]>([]);
     useEffect(() => {
@@ -65,6 +67,8 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
                 labelsFontColor,
                 labelsFontStyle
             }}
+            className={customClass || ""}
+            style={style}
         />
     );
 };

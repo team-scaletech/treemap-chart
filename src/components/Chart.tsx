@@ -1,4 +1,4 @@
-import { createElement, FC, useEffect, useState } from "react";
+import { createElement, CSSProperties, FC, useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -46,6 +46,8 @@ interface ChartProps {
     hoverEffectColor?: string;
     ChartTitleStyle?: ChartTitleProps;
     labelStyle?: LabelStyleProps;
+    className?: string;
+    style?: CSSProperties;
 }
 const colors = [
     "rgba(59, 147, 165, 0.8)",
@@ -78,7 +80,14 @@ const defaultlabelStyle: LabelStyleProps = {
     labelsFontStyle: "normal",
     labelsFontWeight: 600
 };
-const TreemapChart: FC<ChartProps> = ({ chartValue, hoverEffectColor, ChartTitleStyle, labelStyle }) => {
+const TreemapChart: FC<ChartProps> = ({
+    chartValue,
+    hoverEffectColor,
+    ChartTitleStyle,
+    labelStyle,
+    className,
+    style
+}) => {
     const [data, setData] = useState<MapData[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -167,7 +176,7 @@ const TreemapChart: FC<ChartProps> = ({ chartValue, hoverEffectColor, ChartTitle
     const filteredData = data.filter(item => item.labelKey.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
-        <div>
+        <div className={className} style={style}>
             <div className="search-wrapper">
                 <div className="search-container">
                     <span className="search-icon">&#x1F50E;&#xFE0E;</span>
