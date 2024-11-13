@@ -13,10 +13,23 @@ export interface TreeMapChartContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     objectsDatasource: ListValue;
-    nameAttribute: ListAttributeValue<string>;
-    capacityMWAttribute: ListAttributeValue<Big>;
-    dataCoverageAttribute: ListAttributeValue<Big>;
-    myTollTip: ListExpressionValue<string>;
+    dataKey: ListAttributeValue<Big | string>;
+    labelKey: ListAttributeValue<Big | string>;
+    myToolTip: ListExpressionValue<string>;
+    hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: Big;
+    labelsFontStyle: string;
+    labelsFontWeight: Big;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: Big;
+    fontStyle: string;
+    fontWeight: Big;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -30,8 +43,21 @@ export interface TreeMapChartPreviewProps {
     readOnly: boolean;
     renderMode?: "design" | "xray" | "structure";
     objectsDatasource: {} | { caption: string } | { type: string } | null;
-    nameAttribute: string;
-    capacityMWAttribute: string;
-    dataCoverageAttribute: string;
-    myTollTip: string;
+    dataKey: string;
+    labelKey: string;
+    myToolTip: string;
+    hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: number | null;
+    labelsFontStyle: string;
+    labelsFontWeight: number | null;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: number | null;
+    fontStyle: string;
+    fontWeight: number | null;
 }

@@ -17,36 +17,95 @@
             <propertyGroup caption="General">
                 <property key="objectsDatasource" type="datasource" isList="true">
                     <caption>Data source</caption>
-                    <description />
+                    <description>Define the data source for chart values.</description>
                 </property>
 
-                <property key="nameAttribute" type="attribute" dataSource="objectsDatasource">
-                    <caption>nameAttribute</caption>
-                    <description />
+                <property key="dataKey" type="attribute" dataSource="objectsDatasource">
+                    <caption>Data Key</caption>
+                    <description>Define the key name in data objects to use for value</description>
                     <attributeTypes>
+                        <attributeType name="Integer" />
+                        <attributeType name="Decimal" />
                         <attributeType name="String" />
                     </attributeTypes>
                 </property>
-                <property key="capacityMWAttribute" type="attribute" dataSource="objectsDatasource">
-                    <caption>capacityMWAttribute</caption>
-                    <description />
+
+                <property key="labelKey" type="attribute" dataSource="objectsDatasource">
+                    <caption>Label Key</caption>
+                    <description>Define the key name in data objects to use for label</description>
                     <attributeTypes>
+                       <attributeType name="Integer" />
                         <attributeType name="Decimal" />
+                        <attributeType name="String" />
                     </attributeTypes>
-                </property>
-                <property key="dataCoverageAttribute" type="attribute" dataSource="objectsDatasource">
-                    <caption>dataCoverageAttribute</caption>
-                    <description />
-                    <attributeTypes>
-                        <attributeType name="Decimal" />
-                    </attributeTypes>
-                </property>
-                <property key="myTollTip" type="textTemplate" dataSource="objectsDatasource">
-                    <caption>Input tooltip</caption>
-                    <description>Title for the color input</description>
+                </property>            
+                <property key="myToolTip" type="textTemplate" dataSource="objectsDatasource">
+                   <caption>Tooltip Template</caption>
+                   <description>Tooltip text displayed when hovering over chart elements. Can include dynamic data from the data source.</description>
                     <translations>
                         <translation lang="en_US" />
                     </translations>
+                </property>
+                <property key="hoverEffectColor" type="string"  required="false" >
+                    <caption>Hover Effect color</caption>
+                    <description>Color displayed when hovering over elements</description>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Chart labels">
+                <property key="IsLabels" type="boolean" defaultValue="false" >
+                    <caption>Show Labels</caption>
+                    <description>Enable or disable the display of the labels.</description>
+                </property>
+                <property key="labelsFontColor" type="string"  required="false" >
+                    <caption>Font color</caption>
+                    <description>Set the font color for the labels (e.g., '#000000' for black).</description>
+                </property>
+                <property key="labelsFontFamily" type="string"  required="false" >
+                    <caption>Font Family</caption>
+                    <description>Set the font family for the labels (e.g., Arial, Times New Roman).</description>
+                </property>
+                <property key="labelsFontSize" type="decimal" defaultValue='12'>
+                    <caption>Font Size</caption>
+                    <description>Define the font size for the labels in pixels.</description>
+                </property>
+                <property key="labelsFontStyle" type="string"  required="false" >
+                    <caption>Font Style</caption>
+                    <description>Choose the font style for the labels (e.g., normal, italic, oblique, initial, inherit).</description>
+                </property>
+                <property key="labelsFontWeight" type="decimal" defaultValue='100' >
+                    <caption>Font Weight</caption>
+                    <description>Set the font weight for the labels (e.g., 100 for light, 400 for normal, 700 for lighter, 900 for bolder).</description>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Chart Title">
+                <property key="IsTitle" type="boolean" defaultValue="false" >
+                    <caption>Show Chart Title</caption>
+                    <description>Enable or disable the display of the chart title.</description>
+                </property>
+                <property key="chartTitle" type="string" required="false">
+                    <caption>Chart Title</caption>
+                    <description>The title displayed above the treemap chart.</description>
+                </property>
+                <property key="fontColor" type="string"  required="false" >
+                    <caption>Font color</caption>
+                    <description>Set the font color for the chart title (e.g., '#000000' for black).</description>
+                </property>
+                <property key="fontFamily" type="string"  required="false" >
+                    <caption>Font Family</caption>
+                    <description>Set the font family for the chart title (e.g., Arial, Times New Roman).</description>
+                </property>
+                <property key="fontSize" type="decimal" defaultValue='12'>
+                    <caption>Font Size</caption>
+                    <description>Define the font size for the chart title in pixels.</description>
+                </property>
+                <property key="fontStyle" type="string"  required="false" >
+                    <caption>Font Style</caption>
+                    <description>Choose the font style for the chart title (e.g., normal, italic, oblique, initial, inherit).</description>
+                </property>
+                <property key="fontWeight" type="decimal" defaultValue='100' >
+                    <caption>Font Weight</caption>
+                    <description>Set the font weight for the chart title (e.g., 100 for light, 400 for normal, 700 for lighter, 900 for bolder).</description>
                 </property>
             </propertyGroup>
         </propertyGroup>
