@@ -1,4 +1,5 @@
-import { createElement, useState } from "react";
+import { createElement, CSSProperties, FC, useEffect, useState } from "react";
+import { Chart } from "react-chartjs-2";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,7 +10,7 @@ import {
     Legend as ChartLegend
 } from "chart.js";
 import { TreemapController, TreemapElement } from "chartjs-chart-treemap";
-import { Chart } from "react-chartjs-2";
+import { MapData } from "src/TreeMapChart";
 
 // Register the necessary plugins
 ChartJS.register(
@@ -22,54 +23,103 @@ ChartJS.register(
     TreemapController,
     TreemapElement
 );
+interface LabelStyleProps {
+    IsLabels?: boolean;
+    labelsFontSize?: number;
+    labelsFontFamily?: string;
+    labelsFontWeight?: number;
+    labelsFontColor?: string;
+    labelsFontStyle?: string;
+}
 
-const TreemapChart = () => {
-    const initialData = [
-        { name: "Asset 1", capacityMW: 100, dataCoverage: 0.1 },
-        { name: "Asset 2", capacityMW: 350, dataCoverage: 0.7 },
-        { name: "Asset 3", capacityMW: 200, dataCoverage: 0.5 },
-        { name: "Asset 4", capacityMW: 50, dataCoverage: 0.8 },
-        { name: "Asset 5", capacityMW: 50, dataCoverage: 0.8 },
-        { name: "Asset 6", capacityMW: 50, dataCoverage: 0.6 },
-        { name: "Asset 7", capacityMW: 150, dataCoverage: 0 },
-        { name: "Asset 8", capacityMW: 100, dataCoverage: 0.1 },
-        { name: "Asset 9", capacityMW: 400, dataCoverage: 0.3 },
-        { name: "Asset 10", capacityMW: 200, dataCoverage: 0.5 },
-        { name: "Asset 11", capacityMW: 50, dataCoverage: 0.8 },
-        { name: "Asset 12", capacityMW: 50, dataCoverage: 0.8 },
-        { name: "Asset 13", capacityMW: 50, dataCoverage: 0.6 },
-        { name: "Asset 14", capacityMW: 900, dataCoverage: 0.8 }
-    ];
-
-    const [data, setData] = useState(initialData);
+interface ChartTitleProps {
+    chartTitle?: string;
+    IsTitle?: boolean;
+    fontFamily?: string;
+    fontColor?: string;
+    fontSize?: number;
+    fontStyle?: string;
+    fontWeight?: number;
+}
+interface ChartProps {
+    chartValue?: MapData[];
+    hoverEffectColor?: string;
+    ChartTitleStyle?: ChartTitleProps;
+    labelStyle?: LabelStyleProps;
+    className?: string;
+    style?: CSSProperties;
+}
+const colors = [
+    "rgba(59, 147, 165, 0.8)",
+    "rgba(247, 184, 68, 0.6)",
+    "rgba(173, 216, 199, 0.7)",
+    "rgba(236, 60, 101, 0.5)",
+    "rgba(205, 215, 182, 0.9)",
+    "rgba(193, 246, 102, 0.3)",
+    "rgba(212, 63, 151, 0.6)",
+    "rgba(30, 93, 140, 0.4)",
+    "rgba(66, 18, 67, 0.2)",
+    "rgba(127, 148, 176, 0.8)",
+    "rgba(239, 101, 55, 0.9)",
+    "rgba(192, 173, 219, 0.7)"
+];
+const defaultChartTitleStyle: ChartTitleProps = {
+    chartTitle: "demo",
+    IsTitle: true,
+    fontFamily: "Open Sans, sans-serif",
+    fontColor: "#000000",
+    fontSize: 16,
+    fontStyle: "normal",
+    fontWeight: 400
+};
+const defaultlabelStyle: LabelStyleProps = {
+    IsLabels: true,
+    labelsFontFamily: "Open Sans, sans-serif",
+    labelsFontColor: "#000000",
+    labelsFontSize: 16,
+    labelsFontStyle: "normal",
+    labelsFontWeight: 600
+};
+const TreemapChart: FC<ChartProps> = ({
+    chartValue,
+    hoverEffectColor,
+    ChartTitleStyle,
+    labelStyle,
+    className,
+    style
+}) => {
+    const [data, setData] = useState<MapData[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleAddAsset = () => {
-        const newAsset = {
-            name: `Asset ${data.length + 1}`,
-            capacityMW: Math.random() * 500,
-            dataCoverage: Math.random()
-        };
-        setData([...data, newAsset]);
+    useEffect(() => {
+        if (chartValue && chartValue.length > 0) {
+            setData(chartValue);
+        }
+    }, [chartValue]);
+    const mergedChartTitleStyle = {
+        ...defaultChartTitleStyle,
+        ...Object.fromEntries(
+            Object.entries(ChartTitleStyle || {}).filter(([_, value]) => value !== "" && value !== undefined)
+        )
     };
-
-    const getDynamicColor = (dataCoverage: any) => {
-        const minColor = [255, 0, 0]; // Red for low coverage
-        const maxColor = [0, 255, 0]; // Green for high coverage
-        const interpolate = (min: number, max: number, factor: number) => Math.round(min + (max - min) * factor);
-
-        const r = interpolate(minColor[0], maxColor[0], dataCoverage);
-        const g = interpolate(minColor[1], maxColor[1], dataCoverage);
-        const b = interpolate(minColor[2], maxColor[2], dataCoverage);
-
-        return `rgb(${r},${g},${b})`;
+    const mergedlabelStyle = {
+        ...defaultlabelStyle,
+        ...Object.fromEntries(
+            Object.entries(labelStyle || {}).filter(([_, value]) => value !== "" && value !== undefined)
+        )
     };
-
     const options = {
         plugins: {
             title: {
-                display: true,
-                text: "Treemap Example with Enhanced Features"
+                display: mergedChartTitleStyle.IsTitle,
+                text: mergedChartTitleStyle.chartTitle,
+                color: mergedChartTitleStyle.fontColor,
+                font: {
+                    family: mergedChartTitleStyle.fontFamily,
+                    size: mergedChartTitleStyle.fontSize,
+                    style: mergedChartTitleStyle.fontStyle,
+                    weight: mergedChartTitleStyle.fontWeight
+                }
             },
             legend: {
                 display: false
@@ -77,20 +127,15 @@ const TreemapChart = () => {
             tooltip: {
                 displayColors: false,
                 callbacks: {
-                    title(items: { raw: { _data: { name: any } } }[]) {
-                        return items[0].raw._data.name;
+                    title(items: { raw: { _data: { labelKey: any } } }[]) {
+                        return items[0].raw._data.labelKey;
                     },
-                    label(item: { raw: { _data: { capacityMW: any; dataCoverage: any } } }) {
+                    label(item: { raw: { _data: { tollTip: string } } }) {
                         const {
-                            _data: { capacityMW, dataCoverage }
+                            _data: { tollTip }
                         } = item.raw;
-                        const totalCapacity = data.reduce((acc, curr) => acc + curr.capacityMW, 0);
-                        const percentage = ((capacityMW / totalCapacity) * 100).toFixed(1);
-                        return [
-                            `Export capacity: ${capacityMW} MW`,
-                            `Data Coverage: ${(dataCoverage * 100).toFixed(1)}%`,
-                            `Percentage of total capacity: ${percentage}%`
-                        ];
+
+                        return [tollTip];
                     }
                 }
             }
@@ -103,19 +148,23 @@ const TreemapChart = () => {
             datasets: [
                 {
                     tree: data,
-                    key: "capacityMW",
+                    key: "dataKey",
                     labels: {
-                        display: true,
-                        formatter: (context: { raw: { _data: { name: any } } }) => context.raw._data.name
+                        display: mergedlabelStyle.IsLabels,
+                        formatter: (context: { raw: { _data: { labelKey: any } } }) => context.raw._data.labelKey,
+                        color: mergedlabelStyle.labelsFontColor, // Set label color
+                        font: {
+                            size: mergedlabelStyle.labelsFontSize, // Set font size
+                            family: mergedlabelStyle.labelsFontFamily, // Optional: specify a font family
+                            weight: mergedlabelStyle.labelsFontWeight, // Optional: set font weight
+                            style: mergedlabelStyle.labelsFontStyle
+                        }
                     },
-                    backgroundColor(context: { type: string; raw: { _data: { dataCoverage: any } } }) {
-                        if (context.type !== "data") return "transparent";
-                        const {
-                            _data: { dataCoverage }
-                        } = context.raw;
-                        return getDynamicColor(dataCoverage);
+
+                    backgroundColor(context: { dataIndex: number }) {
+                        return colors[context.dataIndex % colors.length];
                     },
-                    hoverBackgroundColor: "yellow",
+                    hoverBackgroundColor: hoverEffectColor ? hoverEffectColor : "yellow",
                     borderColor: "black",
                     borderWidth: 1
                 }
@@ -124,18 +173,23 @@ const TreemapChart = () => {
     };
 
     // Filter data based on search term
-    const filteredData = data.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredData = data.filter(item => item.labelKey.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search asset..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                aria-label="Search assets"
-            />
-            <button onClick={handleAddAsset}>Add Asset</button>
+        <div className={className} style={style}>
+            <div className="search-wrapper">
+                <div className="search-container">
+                    <span className="search-icon">&#x1F50E;&#xFE0E;</span>
+                    <input
+                        className="search-area"
+                        type="text"
+                        placeholder="Search asset..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        aria-label="Search assets"
+                    />
+                </div>
+            </div>
             <Chart
                 type="treemap"
                 data={{

@@ -1,50 +1,76 @@
-import { FC, createElement, useEffect } from "react";
+import { FC, createElement, useEffect, useState } from "react";
 
 import { TreeMapChartContainerProps } from "typings/TreeMapChartProps";
 import TreemapChart from "./components/Chart";
+
 import "./ui/TreeMapChart.css";
 
-interface MapData {
-    name: string;
-    capacityMW: string;
-    dataCoverage: string;
+export interface MapData {
+    labelKey: string;
+    dataKey: string;
+    tollTip: string;
 }
 
-const TreeMapChart: FC<TreeMapChartContainerProps> = ({ objectsDatasource }) => {
+const TreeMapChart: FC<TreeMapChartContainerProps> = ({
+    objectsDatasource,
+    labelKey,
+    dataKey,
+    myToolTip,
+    chartTitle,
+    hoverEffectColor,
+    IsTitle,
+    fontFamily,
+    fontColor,
+    fontSize,
+    fontStyle,
+    fontWeight,
+    IsLabels,
+    labelsFontSize,
+    labelsFontFamily,
+    labelsFontWeight,
+    labelsFontColor,
+    labelsFontStyle,
+    class: customClass,
+    style
+}) => {
+    const [chartValue, setChartValue] = useState<MapData[]>([]);
     useEffect(() => {
-        let datavalue: MapData[] = [];
-
-        if (objectsDatasource && objectsDatasource.items && objectsDatasource.items.length > 0) {
-            try {
-                const { items } = objectsDatasource;
-                datavalue = items
-                    ? items
-                          .map((item: any) => {
-                              const defectAttributes = item[Object.getOwnPropertySymbols(item)[0]].jsonData.attributes;
-                              const name = defectAttributes.name.value;
-                              const capacityMW = defectAttributes.capacityMW.value;
-                              const dataCoverage = defectAttributes.dataCoverage.value;
-
-                              // Return null if any required attribute is null
-                              if (name == null || capacityMW == null || dataCoverage == null) {
-                                  return null;
-                              }
-
-                              return {
-                                  name: name,
-                                  capacityMW: capacityMW,
-                                  dataCoverage: dataCoverage || ""
-                              };
-                          })
-                          // Filter out null values
-                          .filter((item): item is MapData => item !== null)
-                    : [];
-            } catch (e) {
-                console.log("Error in processing defects", e);
-            }
+        if (objectsDatasource && objectsDatasource.items) {
+            objectsDatasource.items.forEach((item: any) => {
+                const chartData = {
+                    labelKey: labelKey.get(item).displayValue,
+                    dataKey: dataKey.get(item).displayValue,
+                    tollTip: myToolTip.get(item).value || ""
+                };
+                setChartValue(prevChartValue => [...prevChartValue, chartData]);
+            });
         }
     }, [objectsDatasource]);
-    return <TreemapChart />;
+    return (
+        <TreemapChart
+            chartValue={chartValue}
+            hoverEffectColor={hoverEffectColor}
+            ChartTitleStyle={{
+                chartTitle,
+                IsTitle,
+                fontFamily,
+                fontColor,
+                fontSize: parseFloat(fontSize as any),
+                fontStyle,
+                fontWeight: parseFloat(fontWeight as any)
+            }}
+            labelStyle={{
+                IsLabels,
+                labelsFontSize: parseFloat(labelsFontSize as any),
+                labelsFontFamily,
+                labelsFontWeight: parseFloat(labelsFontWeight as any),
+                labelsFontColor,
+                labelsFontStyle
+            }}
+            className={customClass || ""}
+            style={style}
+        />
+    );
 };
 
 export default TreeMapChart;

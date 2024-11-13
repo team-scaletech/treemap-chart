@@ -4,16 +4,32 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ListValue } from "mendix";
+import { ListValue, ListAttributeValue, ListExpressionValue } from "mendix";
+import { Big } from "big.js";
 
 export interface TreeMapChartContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    objectsDatasource?: ListValue;
-    moduleName: string;
-    entityName: string;
+    objectsDatasource: ListValue;
+    dataKey: ListAttributeValue<Big | string>;
+    labelKey: ListAttributeValue<Big | string>;
+    myToolTip: ListExpressionValue<string>;
+    hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: Big;
+    labelsFontStyle: string;
+    labelsFontWeight: Big;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: Big;
+    fontStyle: string;
+    fontWeight: Big;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -27,6 +43,21 @@ export interface TreeMapChartPreviewProps {
     readOnly: boolean;
     renderMode?: "design" | "xray" | "structure";
     objectsDatasource: {} | { caption: string } | { type: string } | null;
-    moduleName: string;
-    entityName: string;
+    dataKey: string;
+    labelKey: string;
+    myToolTip: string;
+    hoverEffectColor: string;
+    IsLabels: boolean;
+    labelsFontColor: string;
+    labelsFontFamily: string;
+    labelsFontSize: number | null;
+    labelsFontStyle: string;
+    labelsFontWeight: number | null;
+    IsTitle: boolean;
+    chartTitle: string;
+    fontColor: string;
+    fontFamily: string;
+    fontSize: number | null;
+    fontStyle: string;
+    fontWeight: number | null;
 }
