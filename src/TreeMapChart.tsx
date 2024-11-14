@@ -6,6 +6,7 @@ import TreemapChart from "./components/Chart";
 import "./ui/TreeMapChart.css";
 
 export interface MapData {
+    id: string;
     labelKey: string;
     dataKey: string;
     tollTip: string;
@@ -31,13 +32,15 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
     labelsFontColor,
     labelsFontStyle,
     class: customClass,
-    style
+    style,
+    chartOnClickAction
 }) => {
     const [chartValue, setChartValue] = useState<MapData[]>([]);
     useEffect(() => {
         if (objectsDatasource && objectsDatasource.items) {
             objectsDatasource.items.forEach((item: any) => {
                 const chartData = {
+                    id: item.id,
                     labelKey: labelKey.get(item).displayValue,
                     dataKey: dataKey.get(item).displayValue,
                     tollTip: myToolTip.get(item).value || ""
@@ -46,6 +49,7 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
             });
         }
     }, [objectsDatasource]);
+
     return (
         <TreemapChart
             chartValue={chartValue}
@@ -69,6 +73,8 @@ const TreeMapChart: FC<TreeMapChartContainerProps> = ({
             }}
             className={customClass || ""}
             style={style}
+            chartOnClickAction={chartOnClickAction}
+            objectsDatasource={objectsDatasource}
         />
     );
 };

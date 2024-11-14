@@ -10,6 +10,7 @@ import {
     Legend as ChartLegend
 } from "chart.js";
 import { TreemapController, TreemapElement } from "chartjs-chart-treemap";
+import { ListActionValue, ListValue } from "mendix";
 import { MapData } from "src/TreeMapChart";
 
 // Register the necessary plugins
@@ -48,6 +49,8 @@ interface ChartProps {
     labelStyle?: LabelStyleProps;
     className?: string;
     style?: CSSProperties;
+    chartOnClickAction?: ListActionValue;
+    objectsDatasource?: ListValue;
 }
 const colors = [
     "rgba(59, 147, 165, 0.8)",
@@ -86,7 +89,9 @@ const TreemapChart: FC<ChartProps> = ({
     ChartTitleStyle,
     labelStyle,
     className,
-    style
+    style,
+    chartOnClickAction,
+    objectsDatasource
 }) => {
     const [data, setData] = useState<MapData[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -138,6 +143,32 @@ const TreemapChart: FC<ChartProps> = ({
                         return [tollTip];
                     }
                 }
+            }
+        },
+        onClick: (event: any, chartElements: any[]) => {
+            chartClickEvent(chartElements, event.chart);
+        }
+    };
+    const chartClickEvent = (chartElements: any[], chart: any) => {
+        if (chartElements.length > 0) {
+            chart.options.animation = false;
+            const firstElement = chartElements[0];
+            const datasetIndex = firstElement.datasetIndex;
+            const dataIndex = firstElement.index;
+
+            // Access the clicked data point
+            const clickedData = chart.data.datasets[datasetIndex].data[dataIndex];
+
+            // Access the value within the clicked data
+            const clickedValue = clickedData._data; // Use '_data' or the property specific to your data
+
+            if (objectsDatasource && objectsDatasource.items && chartOnClickAction) {
+                const filteredData = objectsDatasource.items.filter(item => item.id === clickedValue.id);
+                const actionOnFirstItem = chartOnClickAction.get(filteredData[0]);
+                actionOnFirstItem.execute();
+                // Execute the Mendix action if needed
+            } else {
+                console.warn("No chart element clicked.");
             }
         }
     };

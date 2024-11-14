@@ -109,5 +109,11 @@
                 </property>
             </propertyGroup>
         </propertyGroup>
+        <propertyGroup caption="Events">
+            <property key="chartOnClickAction" type="action" required="false" dataSource="objectsDatasource">
+                <caption>onclick Action</caption>
+                <description>Action triggered when a chart element is clicked.</description>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>

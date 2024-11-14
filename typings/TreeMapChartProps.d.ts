@@ -4,7 +4,7 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ListValue, ListAttributeValue, ListExpressionValue } from "mendix";
+import { ListValue, ListActionValue, ListAttributeValue, ListExpressionValue } from "mendix";
 import { Big } from "big.js";
 
 export interface TreeMapChartContainerProps {
@@ -30,6 +30,7 @@ export interface TreeMapChartContainerProps {
     fontSize: Big;
     fontStyle: string;
     fontWeight: Big;
+    chartOnClickAction?: ListActionValue;
 }
 
 export interface TreeMapChartPreviewProps {
@@ -60,4 +61,5 @@ export interface TreeMapChartPreviewProps {
     fontSize: number | null;
     fontStyle: string;
     fontWeight: number | null;
+    chartOnClickAction: {} | null;
 }
